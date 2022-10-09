@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MediaFilesBox.Application\MediaFilesBox.Application.csproj" />
+  </ItemGroup>
+
 </Project>
