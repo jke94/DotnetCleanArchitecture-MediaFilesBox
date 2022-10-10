@@ -7,6 +7,7 @@
     using MediaFilesBox.Application.FileItems.Queries.GetFileItemWithPagination;
     using Microsoft.AspNetCore.Mvc;
     using MediaFilesBox.Application.FileItems.Queries;
+    using MediaFilesBox.Application.FileItems.Queries.GetFileItems;
 
     #endregion
 
@@ -40,6 +41,12 @@
         public async Task<ActionResult<FileItemDto>> GetFileItem(int id)
         {
             return await Mediator.Send(new GetFileItemQuery { Id = id });
+        }
+
+        [HttpGet("{name}")]
+        public async Task<ActionResult<FileItemDto>> GetFileItemByName(string name)
+        {
+            return await Mediator.Send(new GetGetFileItemByNameQuery { Name = name });
         }
 
         #endregion
