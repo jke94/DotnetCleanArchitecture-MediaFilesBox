@@ -1,7 +1,7 @@
-﻿namespace MediaFilesBox.Application.FileItems.Queries.GetFileItem
+﻿namespace MediaFilesBox.Application.FileItems.Queries
 {
     #region
-    
+
     using MediaFilesBox.Application.Common.Mappings;
     using MediaFilesBox.Domain.Entities;
 
