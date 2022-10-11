@@ -8,6 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["MediaFilesBox.WebApi/MediaFilesBox.WebApi.csproj", "MediaFilesBox.WebApi/"]
+COPY ["MediaFilesBox.Application/MediaFilesBox.Application.csproj", "MediaFilesBox.Application/"]
+COPY ["MediaFilesBox.Domain/MediaFilesBox.Domain.csproj", "MediaFilesBox.Domain/"]
+COPY ["MediaFilesBox.Infrastructure/MediaFilesBox.Infrastructure.csproj", "MediaFilesBox.Infrastructure/"]
 RUN dotnet restore "MediaFilesBox.WebApi/MediaFilesBox.WebApi.csproj"
 COPY . .
 WORKDIR "/src/MediaFilesBox.WebApi"
