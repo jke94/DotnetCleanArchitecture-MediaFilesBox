@@ -17,8 +17,4 @@
     <ProjectReference Include="..\MediaFilesBox.Domain\MediaFilesBox.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FileItems\EventHandlers\" />
-  </ItemGroup>
-
 </Project>

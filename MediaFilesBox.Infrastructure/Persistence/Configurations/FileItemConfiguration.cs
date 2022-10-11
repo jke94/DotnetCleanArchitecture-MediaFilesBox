@@ -14,6 +14,8 @@
         {
             builder.ToTable("FileItem");
 
+            builder.Ignore(e => e.DomainEvents);
+
             builder.Property(e => e.Id)
                 .ValueGeneratedOnAdd();
         }

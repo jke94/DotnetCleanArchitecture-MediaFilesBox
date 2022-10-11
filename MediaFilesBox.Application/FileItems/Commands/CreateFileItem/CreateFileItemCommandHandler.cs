@@ -4,6 +4,7 @@
 
     using MediaFilesBox.Application.Common.Interfaces;
     using MediaFilesBox.Domain.Entities;
+    using MediaFilesBox.Domain.Events;
     using MediatR;
 
     #endregion
@@ -25,8 +26,7 @@
                 Path = request.Path,
             };
 
-            // TODO: Implement DomainEvents
-            //entity.DomainEvents.Add(new SuperheroCreatedEvent(entity));
+            entity.DomainEvents.Add(new FileItemCreatedEvent(entity));
 
             _applicationDbContext.FileItems.Add(entity);
 

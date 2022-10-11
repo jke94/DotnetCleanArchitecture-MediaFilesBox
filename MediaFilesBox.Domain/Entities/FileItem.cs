@@ -1,9 +1,18 @@
-﻿namespace MediaFilesBox.Domain.Entities
+﻿
+namespace MediaFilesBox.Domain.Entities
 {
-    public class FileItem
+    #region
+
+    using MediaFilesBox.Domain.Common;
+
+    #endregion
+
+    public class FileItem : IHasDomainEvent
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Path { get; set; }
+
+        public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
     }
 }
