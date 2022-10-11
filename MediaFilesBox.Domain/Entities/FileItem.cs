@@ -7,7 +7,7 @@ namespace MediaFilesBox.Domain.Entities
 
     #endregion
 
-    public class FileItem : IHasDomainEvent
+    public class FileItem : AuditableEntity, IHasDomainEvent
     {
         public int Id { get; set; }
         public string? Name { get; set; }

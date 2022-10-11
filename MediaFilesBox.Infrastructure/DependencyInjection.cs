@@ -7,6 +7,7 @@
     using Microsoft.Extensions.Configuration;
     using MediaFilesBox.Application.Common.Interfaces;
     using MediaFilesBox.Infrastructure.Persistence;
+    using MediaFilesBox.Infrastructure.Services;
 
     #endregion
 
@@ -30,6 +31,10 @@
             //}
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+
+            services.AddScoped<IDomainEventService, DomainEventService>();
+
+            services.AddTransient<IDateTime, DateTimeService>();
 
             return services;
         }
