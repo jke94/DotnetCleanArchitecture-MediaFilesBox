@@ -44,7 +44,7 @@ namespace MediaFilesBox.WebApi
             }
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -52,7 +52,8 @@ namespace MediaFilesBox.WebApi
 
             app.UseStaticFiles();
 
-            app.UseHttpsRedirection();
+            // TODO: Uncomment with SLL certificate.
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
