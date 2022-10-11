@@ -10,6 +10,7 @@
     using MediaFilesBox.Application.FileItems.Queries.GetFileItems;
     using MediaFilesBox.Application.FileItems.Commands.CreateMediaFile;
     using MediaFilesBox.Application.FileItems.Commands.DeleteMediaFile;
+    using MediaFilesBox.Application.FileItems.Commands.UpdateMediaFile;
 
     #endregion
 
@@ -69,6 +70,23 @@
         public async Task<ActionResult> Delete(int id)
         {
             await Mediator.Send(new DeleteFileItemCommand { Id = id });
+
+            return NoContent();
+        }
+
+        #endregion
+
+        #region HTTP PUT: Methods
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, UpdateFileItemCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+
+            await Mediator.Send(command);
 
             return NoContent();
         }
