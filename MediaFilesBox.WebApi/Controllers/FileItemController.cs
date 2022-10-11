@@ -2,13 +2,14 @@
 {
     #region using
 
+    using Microsoft.AspNetCore.Mvc;
     using MediaFilesBox.Application.Common.Models;
+    using MediaFilesBox.Application.FileItems.Queries;
     using MediaFilesBox.Application.FileItems.Queries.GetFileItem;
     using MediaFilesBox.Application.FileItems.Queries.GetFileItemWithPagination;
-    using Microsoft.AspNetCore.Mvc;
-    using MediaFilesBox.Application.FileItems.Queries;
     using MediaFilesBox.Application.FileItems.Queries.GetFileItems;
     using MediaFilesBox.Application.FileItems.Commands.CreateMediaFile;
+    using MediaFilesBox.Application.FileItems.Commands.DeleteMediaFile;
 
     #endregion
 
@@ -58,6 +59,18 @@
         public async Task<ActionResult<int>> Create([FromForm] CreateFileItemCommand command)
         {
             return await Mediator.Send(command);
+        }
+
+        #endregion
+
+        #region HTTP DELETE: Methods
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await Mediator.Send(new DeleteFileItemCommand { Id = id });
+
+            return NoContent();
         }
 
         #endregion
