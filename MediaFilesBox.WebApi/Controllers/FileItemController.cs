@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using MediaFilesBox.Application.FileItems.Queries;
     using MediaFilesBox.Application.FileItems.Queries.GetFileItems;
+    using MediaFilesBox.Application.FileItems.Commands.CreateMediaFile;
 
     #endregion
 
@@ -47,6 +48,16 @@
         public async Task<ActionResult<FileItemDto>> GetFileItemByName(string name)
         {
             return await Mediator.Send(new GetGetFileItemByNameQuery { Name = name });
+        }
+
+        #endregion
+
+        #region HTTP POST: Methods
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create([FromForm] CreateFileItemCommand command)
+        {
+            return await Mediator.Send(command);
         }
 
         #endregion

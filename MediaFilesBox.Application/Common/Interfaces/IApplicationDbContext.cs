@@ -10,5 +10,7 @@
     public interface IApplicationDbContext
     {
         public DbSet<FileItem> FileItems { get; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
