@@ -1,15 +1,16 @@
-﻿namespace MediaFilesBox.Infrastructure.Persistence
+﻿namespace MediaFilesBox.Infrastructure.Persistence.Providers.InMemory
 {
     #region
 
     using System.Collections.Generic;
     using Domain.Entities;
+    using MediaFilesBox.Infrastructure.Persistence.SqlServer;
 
     #endregion
 
-    public class ApplicationDbContextSeed
+    public class AppInMemoryDbContextSeed
     {
-        public static async Task SeedSampleDataAsync(ApplicationDbContext context)
+        public static async Task SeedSampleDataAsync(AppInMemoryDbContext context)
         {
             IList<FileItem> fileItemList = new List<FileItem>();
 
@@ -19,7 +20,7 @@
                 fileItemList.Add(new FileItem { Id = i, Name = itemGuid.ToString(), Path = $"./items/{itemGuid}.png" });
             });
 
-            context.FileItems.AddRange(fileItemList);           
+            context.FileItems.AddRange(fileItemList);
 
             await context.SaveChangesAsync();
         }

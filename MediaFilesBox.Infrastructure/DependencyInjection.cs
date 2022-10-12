@@ -6,8 +6,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using MediaFilesBox.Application.Common.Interfaces;
-    using MediaFilesBox.Infrastructure.Persistence;
     using MediaFilesBox.Infrastructure.Services;
+    using MediaFilesBox.Infrastructure.Persistence.SqlServer;
+    using Microsoft.Extensions.Hosting;
 
     #endregion
 
@@ -15,22 +16,25 @@
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IHostEnvironment env)
         {
-            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+            if (env.IsDevelopment())
             {
-                services.AddDbContext<ApplicationDbContext>(options =>
+                services.AddDbContext<AppInMemoryDbContext>(options =>
                     options.UseInMemoryDatabase("CleanArchitectureDb"));
+
+                services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppInMemoryDbContext>());
             }
-            else
+            if (env.IsStaging())
             {
-                services.AddDbContext<ApplicationDbContext>(options =>
+                services.AddDbContext<AppSqlServerDbContext>(options =>
                     options.UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-            }
+                        b => b.MigrationsAssembly(typeof(AppSqlServerDbContext).Assembly.FullName)));
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+                services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppSqlServerDbContext>());
+            }
 
             services.AddScoped<IDomainEventService, DomainEventService>();
 

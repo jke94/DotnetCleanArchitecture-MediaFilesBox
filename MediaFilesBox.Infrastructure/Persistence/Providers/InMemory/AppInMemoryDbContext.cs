@@ -1,4 +1,4 @@
-﻿namespace MediaFilesBox.Infrastructure.Persistence
+﻿namespace MediaFilesBox.Infrastructure.Persistence.SqlServer
 {
     #region using
 
@@ -11,7 +11,7 @@
 
     #endregion
 
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class AppInMemoryDbContext : DbContext, IApplicationDbContext
     {
         #region Fields
 
@@ -28,8 +28,8 @@
 
         #region Constructor
 
-        public ApplicationDbContext(
-            DbContextOptions<ApplicationDbContext> options,
+        public AppInMemoryDbContext(
+            DbContextOptions<AppInMemoryDbContext> options,
             IDateTime dateTime,
             IDomainEventService domainEventService) : base(options)
         {

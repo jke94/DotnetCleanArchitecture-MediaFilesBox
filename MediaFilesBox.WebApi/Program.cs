@@ -4,7 +4,9 @@ namespace MediaFilesBox.WebApi
 
     using MediaFilesBox.Application;
     using MediaFilesBox.Infrastructure;
-    using MediaFilesBox.Infrastructure.Persistence;
+    using MediaFilesBox.Infrastructure.Persistence.Providers.InMemory;
+    using MediaFilesBox.Infrastructure.Persistence.SqlServer;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.OpenApi.Models;
 
     #endregion
@@ -17,7 +19,9 @@ namespace MediaFilesBox.WebApi
 
             // Add services to the container.
             builder.Services.AddApplication();
-            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddInfrastructure(
+                builder.Configuration, 
+                builder.Environment);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,12 +41,21 @@ namespace MediaFilesBox.WebApi
             // Seed Data
             using (var scope = app.Services.CreateScope())
             {
-                var scopeProvider = scope.ServiceProvider;
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                if (app.Environment.IsDevelopment())
+                {
+                    var scopeProvider = scope.ServiceProvider;
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppInMemoryDbContext>();
 
-                await ApplicationDbContextSeed.SeedSampleDataAsync(dbContext);
+                    await AppInMemoryDbContextSeed.SeedSampleDataAsync(dbContext);
+                }
+                if (app.Environment.IsStaging())
+                {
+                    var scopeProvider = scope.ServiceProvider;
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppSqlServerDbContext>();
+
+                    dbContext.Database.Migrate();
+                }
             }
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
             {

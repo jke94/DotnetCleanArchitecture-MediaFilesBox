@@ -19,3 +19,9 @@ sudo docker compose -f ./docker-compose.yml -p mediafilebox up --build
 ### 2. Open:
 
 - http://localhost:5080/swagger/index.html
+
+### 3. Add Migration
+
+```
+dotnet ef migrations add "MigrationV0" --project MediaFilesBox.Infrastructure --startup-project MediaFilesBox.WebApi --output-dir Persistence\Providers\SqlServer\Migrations --context AppSqlServerDbContext -- --environment Staging
+```
