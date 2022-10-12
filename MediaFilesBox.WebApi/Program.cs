@@ -5,6 +5,7 @@ namespace MediaFilesBox.WebApi
     using MediaFilesBox.Application;
     using MediaFilesBox.Infrastructure;
     using MediaFilesBox.Infrastructure.Persistence.Providers.InMemory;
+    using MediaFilesBox.Infrastructure.Persistence.Providers.SqlServer;
     using MediaFilesBox.Infrastructure.Persistence.SqlServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.OpenApi.Models;
@@ -54,6 +55,8 @@ namespace MediaFilesBox.WebApi
                     var dbContext = scope.ServiceProvider.GetRequiredService<AppSqlServerDbContext>();
 
                     dbContext.Database.Migrate();
+
+                    await AppSqlServerDbContextSeed.SeedSampleDataAsync(dbContext);
                 }
             }
             // Configure the HTTP request pipeline.
