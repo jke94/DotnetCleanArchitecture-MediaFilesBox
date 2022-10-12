@@ -11,6 +11,7 @@
     using MediaFilesBox.Application.FileItems.Commands.CreateMediaFile;
     using MediaFilesBox.Application.FileItems.Commands.DeleteMediaFile;
     using MediaFilesBox.Application.FileItems.Commands.UpdateMediaFile;
+    using MediaFilesBox.Application.FileItems.Queries.GetFileItemsByExtensionFile;
 
     #endregion
 
@@ -43,13 +44,19 @@
         [HttpGet("{id:int}")]
         public async Task<ActionResult<FileItemDto>> GetFileItem(int id)
         {
-            return await Mediator.Send(new GetFileItemQuery { Id = id });
+            return await Mediator.Send( new GetFileItemQuery { Id = id });
         }
 
-        [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public async Task<ActionResult<FileItemDto>> GetFileItemByName(string name)
         {
-            return await Mediator.Send(new GetGetFileItemByNameQuery { Name = name });
+            return await Mediator.Send( new GetGetFileItemByNameQuery { Name = name });
+        }
+
+        [HttpGet("extension/{extension}")]
+        public async Task<ActionResult<List<FileItemDto>>> GetFileItemsByExtension(string extension)
+        {
+            return await Mediator.Send( new GetFileItemsByExtensionFileQuery{ Extension = extension });
         }
 
         #endregion
