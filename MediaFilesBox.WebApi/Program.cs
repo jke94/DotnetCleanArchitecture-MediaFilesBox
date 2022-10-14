@@ -2,13 +2,14 @@ namespace MediaFilesBox.WebApi
 {
     #region
 
+    using FluentValidation.AspNetCore;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.OpenApi.Models;
     using MediaFilesBox.Application;
     using MediaFilesBox.Infrastructure;
     using MediaFilesBox.Infrastructure.Persistence.Providers.InMemory;
     using MediaFilesBox.Infrastructure.Persistence.Providers.SqlServer;
     using MediaFilesBox.Infrastructure.Persistence.SqlServer;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.OpenApi.Models;
 
     #endregion
 
@@ -36,6 +37,8 @@ namespace MediaFilesBox.WebApi
                     Description = "Media Files Box API - Clean Architecture Solution in .NET 6",
                 });
             });
+
+            builder.Services.AddFluentValidationAutoValidation();
 
             var app = builder.Build();
 
