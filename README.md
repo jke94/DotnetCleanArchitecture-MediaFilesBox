@@ -1,6 +1,7 @@
 [![master](https://github.com/jke94/DotnetCleanArchitecture-MediaFilesBox/actions/workflows/master.yml/badge.svg)](https://github.com/jke94/DotnetCleanArchitecture-MediaFilesBox/actions/workflows/master.yml)
 
 # MediaFilesBox
+A dotnet web api with a clean architecture design.
 
 ## Docker.
 
