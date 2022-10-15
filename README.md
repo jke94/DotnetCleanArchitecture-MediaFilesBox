@@ -1,3 +1,5 @@
+[![master](https://github.com/jke94/DotnetCleanArchitecture-MediaFilesBox/actions/workflows/master.yml/badge.svg)](https://github.com/jke94/DotnetCleanArchitecture-MediaFilesBox/actions/workflows/master.yml)
+
 # MediaFilesBox
 
 ## Docker.
